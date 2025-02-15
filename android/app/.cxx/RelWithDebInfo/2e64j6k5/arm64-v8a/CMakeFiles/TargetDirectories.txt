@@ -1,0 +1,2 @@
+D:/Finance_gpt/fgpt/android/app/.cxx/RelWithDebInfo/2e64j6k5/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/Finance_gpt/fgpt/android/app/.cxx/RelWithDebInfo/2e64j6k5/arm64-v8a/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,27 @@
+name: fgpt
+description: "A new Flutter project."
+
+publish_to: 'none'  # Prevents accidental publishing to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  google_fonts:
+  build_runner: ^2.4.15
+  firebase_core: ^3.11.0  # This is the correct dependency
+  firebase_auth: ^5.4.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0  # Lints package for better code practices
+
+flutter:
+  uses-material-design: true
