@@ -16,6 +16,9 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+    // Track password visibility
+  bool _isPasswordVisible = false;
+
   Future signIn() async{
     await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: _emailController.text.trim(),
@@ -77,7 +80,8 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _emailController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Email'
+                          hintText: 'Email',
+                          hintStyle: TextStyle(color: Colors.grey[500]),
                         ),
                       ),
                     ),
@@ -98,10 +102,25 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
                         controller: _passwordController,
-                        obscureText: true,
+                        obscureText: !_isPasswordVisible,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Password'
+                          hintText: 'Password',
+                          hintStyle: TextStyle(color: Colors.grey[500]),
+                          contentPadding: EdgeInsets.symmetric(vertical: 15.0),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.grey,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isPasswordVisible = !_isPasswordVisible;
+                              });
+                            },
+                          ),
                         ),
                       ),
                     ),
