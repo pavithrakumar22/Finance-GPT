@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'Email_verification_page.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -30,12 +31,58 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future signUp() async {
-    if (passwordConfirmed()) {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+    // Show loading circle
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(child: CircularProgressIndicator());
+      },
+    );
+
+    try {
+      if (passwordConfirmed()) {
+        // Create user
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+
+        // Send email verification
+        await userCredential.user!.sendEmailVerification();
+
+        // Pop loading circle
+        Navigator.of(context).pop();
+      } else {
+        // Pop loading circle
+        Navigator.of(context).pop();
+        // Show error message
+        showErrorMessage('Passwords don\'t match!');
+      }
+    } on FirebaseAuthException catch (e) {
+      // Pop loading circle
+      Navigator.of(context).pop();
+      showErrorMessage(e.message.toString());
     }
+  }
+
+// Helper method to show error message
+  void showErrorMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   bool passwordConfirmed() {

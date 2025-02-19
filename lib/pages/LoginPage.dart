@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  //for memory management
+  //for memory management(overridden method)
   void dispose(){
     _emailController.dispose();
     _passwordController.dispose();
@@ -58,6 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 ),
                 SizedBox(height:10),
+                //Text
                 Text("Welcome to Finance-GPT",
                 style: TextStyle(
                   fontSize: 24,
